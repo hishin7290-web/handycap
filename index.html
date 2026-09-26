@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>장애인평생교육배움자리 음료 주문</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF4F2; --paper:#FFFFFF; --ink:#16302B; --muted:#51665F;
+  --green:#1F6B55; --green-soft:#DCEDE6; --sun:#F4C542; --line:#C9D9D3; --warn:#9A3B1E;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1D1A; --paper:#172925; --ink:#E8F1EE; --muted:#A7BDB6;
+    --green:#5CC3A0; --green-soft:#1F3A33; --sun:#F4C542; --line:#2C453E; --warn:#F09A7A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1D1A; --paper:#172925; --ink:#E8F1EE; --muted:#A7BDB6;
+  --green:#5CC3A0; --green-soft:#1F3A33; --sun:#F4C542; --line:#2C453E; --warn:#F09A7A;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:560px;margin:0 auto;padding:20px 18px 48px}
+header{padding:28px 4px 22px}
+.cup{width:56px;height:56px;border-radius:50%;background:var(--sun);display:grid;place-items:center;font-size:30px;margin-bottom:14px}
+h1{font-size:30px;line-height:1.3;font-weight:900;margin:0 0 8px;letter-spacing:-0.02em;word-break:keep-all}
+.lead{margin:0;color:var(--muted);font-size:17px;word-break:keep-all}
+.panel{background:var(--paper);border-radius:20px;padding:22px 18px;margin-top:16px;border:1px solid var(--line)}
+h2{font-size:20px;margin:0 0 14px;font-weight:700}
+label.f{display:block;font-weight:700;margin:0 0 6px}
+.hint{font-weight:400;color:var(--muted);font-size:15px}
+input[type=text],textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);
+  border:2px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:18px}
+textarea{min-height:70px;resize:vertical}
+input:focus-visible,textarea:focus-visible,button:focus-visible,.opt input:focus-visible+span{outline:3px solid var(--sun);outline-offset:2px}
+fieldset{border:0;margin:0 0 18px;padding:0}
+legend{font-weight:700;margin-bottom:8px;padding:0}
+.opt{display:block;position:relative;margin-bottom:10px;cursor:pointer}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:flex;align-items:center;gap:12px;min-height:58px;padding:12px 16px;
+  border:2px solid var(--line);border-radius:14px;background:var(--paper);font-weight:500}
+.opt span::before{content:"";flex:0 0 22px;height:22px;border-radius:50%;border:2px solid var(--muted);background:var(--paper)}
+.opt input:checked+span{border-color:var(--green);background:var(--green-soft);font-weight:700}
+.opt input:checked+span::before{border-color:var(--green);background:var(--green);box-shadow:inset 0 0 0 4px var(--paper)}
+.opt small{color:var(--muted);font-weight:400;font-size:15px;margin-left:auto}
+.opt.none span{border-style:dashed}
+button{font:inherit;font-weight:700;border:0;border-radius:14px;cursor:pointer;min-height:56px;padding:0 20px}
+.primary{width:100%;background:var(--green);color:#fff;font-size:19px}
+:root:not([data-theme="light"]) .primary{color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .primary{color:#0F1D1A}}
+:root[data-theme="dark"] .primary{color:#0F1D1A}
+.primary:disabled{opacity:.5;cursor:default}
+.ghost{background:transparent;color:var(--green);border:2px solid var(--green)}
+.msg{margin:12px 0 0;font-weight:700;min-height:1.6em}
+.msg.err{color:var(--warn)}
+.done{text-align:center}
+.done .big{font-size:24px;font-weight:900;margin:6px 0}
+.done .mine{display:inline-block;background:var(--green-soft);border-radius:12px;padding:10px 18px;margin:10px 0 16px;font-weight:700}
+.notice{background:var(--sun);color:#16302B;border-radius:14px;padding:14px 16px;font-weight:700;margin-top:16px}
+.admin h2{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.admin h2 small{font-size:15px;color:var(--muted);font-weight:500}
+table{width:100%;border-collapse:collapse;font-size:17px}
+th,td{text-align:left;padding:10px 6px;border-bottom:1px solid var(--line)}
+td.n{text-align:right;font-weight:900;font-size:20px;white-space:nowrap}
+tr.total td{border-bottom:0;font-weight:900}
+.scroll{overflow-x:auto}
+.people td{font-size:15px}
+.row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.row button{flex:1 1 200px}
+#copyBox{width:100%;min-height:160px;margin-top:12px;font-size:15px}
+.hidden{display:none!important}
+.agree{display:flex;gap:10px;align-items:flex-start;background:var(--bg);border-radius:12px;padding:12px 14px;margin-bottom:18px;font-size:15px}
+.agree input{width:22px;height:22px;flex:0 0 22px;margin-top:3px;accent-color:var(--green)}
+.foot{color:var(--muted);font-size:14px;text-align:center;margin-top:28px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="cup" aria-hidden="true">☕</div>
+    <h1>장애인평생교육배움자리<br>음료 주문</h1>
+    <p class="lead">행사 중 드실 음료를 하나 골라 주세요. 모아서 한꺼번에 카페에 주문합니다.</p>
+  </header>
+
+  <div id="loading" class="panel">주문 화면을 불러오는 중입니다.</div>
+  <div id="closedNote" class="notice hidden">주문 접수가 마감되었습니다. 음료가 필요하시면 행사 담당자에게 말씀해 주세요.</div>
+  <div id="errNote" class="notice hidden">주문 화면을 불러오지 못했습니다. 잠시 후 새로고침해 주세요.</div>
+
+  <form id="orderForm" class="panel hidden" novalidate>
+    <h2>내 주문</h2>
+    <label class="f" for="name">이름</label>
+    <input type="text" id="name" autocomplete="name" maxlength="20" required>
+    <label class="f" for="org">소속 <span class="hint">(기관명)</span></label>
+    <input type="text" id="org" maxlength="40">
+    <fieldset>
+      <legend>음료 선택</legend>
+      <div id="menuList"></div>
+    </fieldset>
+    <label class="f" for="note">요청사항 <span class="hint">(선택, 예: 시럽 빼기)</span></label>
+    <textarea id="note" maxlength="60"></textarea>
+    <label class="agree"><input type="checkbox" id="agree">
+      <span>음료 주문과 수령 확인을 위해 이름·소속을 수집하며, 행사 종료 후 바로 파기합니다. 이에 동의합니다.</span></label>
+    <button type="submit" class="primary" id="saveBtn">주문 저장</button>
+    <p class="msg" id="formMsg" role="status" aria-live="polite"></p>
+  </form>
+
+  <div id="donePanel" class="panel done hidden">
+    <div class="cup" style="margin:0 auto 6px" aria-hidden="true">✓</div>
+    <p class="big">주문이 저장되었습니다</p>
+    <div class="mine" id="mySummary"></div>
+    <div><button type="button" class="ghost" id="editBtn">주문 바꾸기</button></div>
+  </div>
+
+  <p class="foot">주문을 바꿀 때는 처음과 같은 이름·소속으로 다시 저장하면 됩니다.</p>
+</div>
+
+<script>
+// ▼ 구글 앱스 스크립트 배포 후 받은 "웹 앱 URL"을 따옴표 안에 붙여 넣으세요
+const SCRIPT_URL = "여기에_웹앱_URL_붙여넣기";
+
+const MENU = [
+  {v:"아메리카노 (따뜻하게)", name:"아메리카노", opt:"따뜻하게"},
+  {v:"아메리카노 (차갑게)",   name:"아메리카노", opt:"차갑게"},
+  {v:"카페라떼 (차갑게)",     name:"카페라떼",   opt:"차갑게"},
+  {v:"녹차라떼",              name:"녹차라떼",   opt:""},
+  {v:"자몽에이드 (차갑게)",   name:"자몽에이드", opt:"차갑게"},
+  {v:"차 (따뜻하게)",         name:"차",         opt:"따뜻하게"},
+  {v:"음료 안 마심",          name:"음료 안 마심", opt:""}
+];
+const $ = id => document.getElementById(id);
+const show = (id,on) => $(id).classList.toggle("hidden", !on);
+const KEY = "drinkOrder.mine";
+
+$("menuList").innerHTML = MENU.map(m => `
+  <label class="opt${m.v==="음료 안 마심"?" none":""}">
+    <input type="radio" name="menu" value="${m.v}">
+    <span>${m.name}${m.opt?`<small>${m.opt}</small>`:""}</span>
+  </label>`).join("");
+
+function loadMine(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch{ return null; } }
+function saveMine(o){ try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch{} }
+
+function fillForm(o){
+  $("name").value = o?.name||""; $("org").value = o?.org||""; $("note").value = o?.note||"";
+  document.querySelectorAll("input[name=menu]").forEach(r => r.checked = !!o && r.value===o.menu);
+}
+function showDone(o){
+  $("mySummary").textContent = `${o.name} · ${o.menu}`;
+  show("orderForm",false); show("donePanel",true);
+}
+
+$("editBtn").addEventListener("click", ()=>{
+  fillForm(loadMine()); show("donePanel",false); show("orderForm",true); $("name").focus();
+});
+
+$("orderForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const msg = $("formMsg"); msg.className = "msg err";
+  const data = {
+    name: $("name").value.trim(), org: $("org").value.trim(), note: $("note").value.trim(),
+    menu: document.querySelector("input[name=menu]:checked")?.value, agree: $("agree").checked
+  };
+  if (!data.name){ msg.textContent="이름을 입력해 주세요."; $("name").focus(); return; }
+  if (!data.menu){ msg.textContent="음료를 하나 골라 주세요."; return; }
+  if (!data.agree){ msg.textContent="개인정보 수집에 동의해 주세요."; $("agree").focus(); return; }
+
+  const btn = $("saveBtn"); btn.disabled = true; msg.className="msg"; msg.textContent="저장하는 중입니다.";
+  try{
+    const res = await fetch(SCRIPT_URL, {
+      method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify(data)
+    });
+    const r = await res.json();
+    if (r.ok){ saveMine(data); msg.textContent=""; showDone(data); }
+    else if (r.error==="closed"){ show("orderForm",false); show("closedNote",true); }
+    else { msg.className="msg err"; msg.textContent="입력 내용을 다시 확인해 주세요."; }
+  }catch{
+    msg.className="msg err"; msg.textContent="저장하지 못했습니다. 인터넷 연결을 확인하고 다시 눌러 주세요.";
+  }finally{ btn.disabled = false; }
+});
+
+(async ()=>{
+  try{
+    const r = await (await fetch(SCRIPT_URL)).json();
+    show("loading",false);
+    if (r.closed){ show("closedNote",true); return; }
+    const mine = loadMine();
+    if (mine){ fillForm(mine); showDone(mine); } else show("orderForm",true);
+  }catch{
+    show("loading",false); show("errNote",true);
+  }
+})();
+</script>
+</body>
+</html>
